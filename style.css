@@ -344,3 +344,59 @@ footer a:hover {
     margin-bottom: 20px;
   }
 }
+
+/* === Navigation === */
+.nav-main {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.nav-main a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.nav-main a:hover {
+  color: #fff;
+}
+
+/* === Liste d'icônes === */
+.feature-list, .steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.feature-list li, .steps-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+.feature-list li strong, .steps-list li strong {
+  color: #fff;
+}
+
+/* === Image pleine largeur === */
+.img-full {
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
+  border-radius: 4px;
+}
+
+/* === Note centrée === */
+.center-note {
+  text-align: center;
+  margin-top: 30px;
+  color: #aaa;
+}
+
+.center-note a {
+  color: #fff;
+}

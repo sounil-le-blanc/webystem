@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Webystem — La communication numérique sur mesure. Sites web et outils métier pour TPE. Sans abonnement. Code libre. Garanti 10 ans.">
-  <meta property="og:title" content="Webystem — La communication numérique sur mesure">
-  <meta property="og:description" content="Sites web et outils métier sans abonnement. Vous payez l'adaptation, pas la brique. Code libre, garanti 10 ans.">
+  <meta name="description" content="Webystem — Comprendre le web pour mieux l'utiliser. Ressources, tutoriels et accompagnement pour TPE.">
+  <meta property="og:title" content="Webystem — Comprendre le web pour mieux l'utiliser">
+  <meta property="og:description" content="Ressources, tutoriels et accompagnement pour construire un site durable, sans abonnement.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://webystem.com">
   <meta property="og:image" content="https://webystem.com/img/apercu-webystem.jpg">
-  <title>Webystem — La communication numérique sur mesure</title>
+  <title>Webystem — Comprendre le web pour mieux l'utiliser</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -19,99 +19,86 @@
   <header>
     <div class="container header-inner">
       <img src="img/logo-webystem.png" alt="Webystem" class="logo logo-large">
-      <p class="tagline">La communication numérique sur mesure</p>
-      <a href="#contact" class="cta">Me contacter</a>
+      <p class="tagline">Comprendre le web pour mieux l'utiliser</p>
+      <nav class="nav-main">
+        <a href="#pourquoi">Pourquoi</a>
+        <a href="#anatomie">Anatomie</a>
+        <a href="#tutoriel">Tutoriel</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
   </header>
 
   <main>
 
-    <!-- 1. Le Constat — Image à droite -->
-    <section id="constat">
-      <div class="container row">
-        <div class="col-text">
-          <h2>Internet, c'est devenu lourd.</h2>
-          <p>Le web moderne est obèse. Sites qui pèsent 5 Mo. Pages couvertes de scripts. Abonnements qui grignotent votre compte chaque mois.</p>
-          <p>Et si on revenait à l'essentiel ?</p>
-        </div>
-        <div class="col-img">
-          <img src="img/illustration-lourd.jpg" alt="Web lourd" class="illustration">
-        </div>
+    <!-- 1. Le Constat -->
+    <section id="pourquoi">
+      <div class="container section-narrow">
+        <h2>Le web est devenu un problème pour les indépendants.</h2>
+        <p>Sites lents, abonnements qui s'accumulent, designs qui vieillissent mal. On vous promet du "clé en main", mais on vous enferme dans des outils que vous ne maîtrisez pas. Et si on reprenait le contrôle ?</p>
+        <img src="img/illustration-probleme.jpg" alt="Le problème du web moderne" class="img-full">
       </div>
     </section>
 
-    <!-- 2. La Révélation — Image à gauche -->
-    <section id="revelation" class="alt-bg">
-      <div class="container row row-reverse">
-        <div class="col-img">
-          <img src="img/illustration-manifeste.jpg" alt="Ce site est un manifeste" class="illustration">
-        </div>
-        <div class="col-text">
-          <h2>Ce site est un manifeste.</h2>
-          <p>Regardez cette page. Elle s'est affichée instantanément. Elle pèse moins de 50 Ko. Écrite en HTML, CSS et JavaScript purs. Les trois langages du web depuis 30 ans.</p>
-          <p>Ce site, c'est ma vitrine. C'est aussi ma preuve.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. La Philosophie — 3 cartes illustrées -->
-    <section id="philosophie">
-      <div class="container">
-        <h2 class="section-title">Low Tech Web Building</h2>
+    <!-- 2. La Philosophie -->
+    <section id="philosophie" class="alt-bg">
+      <div class="container section-narrow">
+        <h2>Low Tech Web Building : une autre approche.</h2>
+        <p>Revenir à l'essentiel. Du code simple, des outils robustes, une indépendance totale. C'est la méthode que j'applique pour mes propres sites, et c'est celle que je partage ici.</p>
         <div class="grid-3">
-
           <div class="card">
-            <img src="img/icone-simple.jpg" alt="Simple" class="card-icon">
             <h3>Simple</h3>
-            <p>Un code lisible, artisanal, sans framework. Ce qui est simple ne tombe pas en panne.</p>
+            <p>Moins de 50 Ko par page. Pas de framework. Un code que n'importe quel développeur peut lire.</p>
           </div>
           <div class="card">
-            <img src="img/icone-robuste.jpg" alt="Robuste" class="card-icon">
             <h3>Robuste</h3>
-            <p>Un hébergement qui coûte quelques euros par an. Aucune mise à jour obligatoire.</p>
+            <p>Hébergement à quelques euros par an. Pas de mise à jour forcée. Aucune panne.</p>
           </div>
           <div class="card">
-            <img src="img/icone-durable.jpg" alt="Durable" class="card-icon">
-            <h3>Durable</h3>
-            <p>Votre site sera encore en ligne dans 10 ans, sans que vous ayez à y toucher.</p>
+            <h3>Libre</h3>
+            <p>Code source livré. Domaine à votre nom. Aucun verrouillage. Vous êtes chez vous.</p>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- 4. La Promesse — Image à droite -->
-    <section id="promesse" class="alt-bg">
-      <div class="container row">
-        <div class="col-text">
-          <h2>Tout est à vous.</h2>
-          <p>Votre domaine. Votre code source. Vos emails. Votre base de données. Tout sur vos propres comptes. Vous voulez changer de prestataire ? Un développeur lit le README et reprend le projet.</p>
-          <p>Vous voulez tout garder tel quel ? Dans 10 ans, ça marchera encore.</p>
-        </div>
-        <div class="col-img">
-          <img src="img/illustration-clefs.jpg" alt="Tout est à vous" class="illustration">
-        </div>
+    <!-- 3. Anatomie d'un site durable -->
+    <section id="anatomie">
+      <div class="container section-narrow">
+        <h2>Anatomie d'un site qui tient 10 ans.</h2>
+        <p>Un bon site, c'est comme une bonne façade : des fondations solides, des matériaux bruts, et un entretien minimal. Voici les briques :</p>
+        <ul class="feature-list">
+          <li><strong>HTML / CSS / JS purs</strong> — Les trois langages du web. Standards, stables, éternels.</li>
+          <li><strong>Hébergement statique</strong> — Vercel, Clever Cloud. Déploiement en un clic. Zéro maintenance.</li>
+          <li><strong>Domaine indépendant</strong> — Cloudflare, Infomaniak. Vous êtes propriétaire, pas locataire.</li>
+          <li><strong>Emails pro souverains</strong> — Resend, Cloudflare Email Routing. Gratuits, fiables, sans usine à gaz.</li>
+          <li><strong>Base de données légère</strong> — Supabase. Uniquement si nécessaire. Exportable en un clic.</li>
+        </ul>
+        <img src="img/illustration-anatomie.jpg" alt="Anatomie d'un site durable" class="img-full">
       </div>
     </section>
 
-    <!-- 5. La Méthode — Image à gauche -->
-    <section id="methode">
-      <div class="container row row-reverse">
-        <div class="col-img">
-          <img src="img/illustration-methode.jpg" alt="Comment je travaille" class="illustration">
-        </div>
-        <div class="col-text">
-          <h2>Comment je travaille.</h2>
-          <p>On se parle. Vous m'expliquez votre métier, vos besoins, ce qui vous bloque. Je construis une solution sur mesure, adaptée à votre activité.</p>
-          <p>Pas de template générique. Un outil qui vous ressemble.</p>
-        </div>
+    <!-- 4. Tutoriel -->
+    <section id="tutoriel" class="alt-bg">
+      <div class="container section-narrow">
+        <h2>Tutoriel : Construire un site qui tient 10 ans.</h2>
+        <p>Pas à pas, voici comment je crée un site durable pour mes clients. Cette méthode est la même pour un site vitrine, une landing page, ou un outil métier.</p>
+        <ol class="steps-list">
+          <li><strong>Parler du métier</strong> — Comprendre l'activité, les clients, les besoins réels.</li>
+          <li><strong>Structurer le contenu</strong> — Définir les pages, les textes, les visuels.</li>
+          <li><strong>Écrire le code</strong> — HTML, CSS, JS purs. Pas de constructeur. Du fait main.</li>
+          <li><strong>Configurer l'infra</strong> — Domaine, emails, hébergement. Tout au nom du client.</li>
+          <li><strong>Livrer les clés</strong> — Code source, accès, documentation. Le client est autonome.</li>
+        </ol>
+        <img src="img/illustration-tutoriel.jpg" alt="Étapes de création" class="img-full">
       </div>
     </section>
 
-    <!-- 6. Les Offres -->
-    <section id="offres" class="alt-bg">
+    <!-- 5. Ce que je peux faire pour vous -->
+    <section id="services">
       <div class="container">
-        <h2 class="section-title">Ce que je vous propose</h2>
+        <h2 class="section-title">Ce que je peux faire pour vous.</h2>
         <div class="grid-3">
 
           <div class="card offre">
@@ -149,40 +136,14 @@
           </div>
 
         </div>
-      </div>
-    </section>
-
-    <!-- Portfolio -->
-    <section id="portfolio">
-      <div class="container">
-        <h2 class="section-title">Exemples</h2>
-        <div class="grid-3">
-
-          <a href="https://alabordarbre-cordiste.vercel.app/" class="card projet" target="_blank" rel="noopener">
-            <img src="img/thumb-alabordarbre.jpg" alt="A l'Abord'Arbre" class="card-thumb">
-            <h3>A l'Abord'Arbre</h3>
-            <p>Landing page — 300 €</p>
-          </a>
-          <a href="https://www.capcordes.fr/" class="card projet" target="_blank" rel="noopener">
-            <img src="img/thumb-capcordes.jpg" alt="Cap Cordes" class="card-thumb">
-            <h3>Cap Cordes</h3>
-            <p>Site vitrine pro — 800 €</p>
-          </a>
-          <a href="https://www.recremagic.com/" class="card projet" target="_blank" rel="noopener">
-            <img src="img/thumb-recremagic.jpg" alt="Récré Magic" class="card-thumb">
-            <h3>Récré Magic</h3>
-            <p>Plateforme avec réservation — 2 500 €</p>
-          </a>
-
-        </div>
+        <p class="center-note">Des questions ? Une idée de projet ? <a href="#contact">Parlons-en</a>.</p>
       </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact">
+    <section id="contact" class="alt-bg">
       <div class="container">
-        <h2>Prêt à reprendre le contrôle ?</h2>
-        <p>Appelez-moi ou écrivez-moi. On parle de votre projet, sans engagement.</p>
+        <h2>Contact</h2>
         <p>📞 <a href="tel:+33756933857">07 56 93 38 57</a></p>
         <p>✉️ <a href="mailto:contact@webystem.com">contact@webystem.com</a></p>
         <p>📍 Région parisienne — Déplacement possible</p>
