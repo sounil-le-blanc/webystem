@@ -252,3 +252,95 @@ footer a:hover {
 .alt-bg {
   background: #111111;
 }
+
+/* === Rubriques avec images === */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.col-text {
+  flex: 1 1 300px;
+}
+
+.col-text h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.col-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #cccccc;
+  margin-bottom: 15px;
+}
+
+.col-text p:last-child {
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.col-img {
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.illustration {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* === Cards avec icônes === */
+.card-icon {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+  object-fit: contain;
+}
+
+/* === Miniatures portfolio === */
+.card-thumb {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+/* === Section title centré === */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 50px;
+  color: #ffffff;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .row, .row-reverse {
+    flex-direction: column;
+  }
+
+  .col-text h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .col-text p {
+    text-align: center;
+  }
+
+  .illustration {
+    order: -1;
+    max-width: 80%;
+    margin-bottom: 20px;
+  }
+}
