@@ -34,8 +34,9 @@ header {
   gap: 15px;
 }
 
-.logo {
-  max-width: 200px;
+.logo-large {
+  max-width: 400px;
+  width: 100%;
   height: auto;
 }
 
