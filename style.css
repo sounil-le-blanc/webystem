@@ -43,7 +43,6 @@ header {
 .tagline {
   font-size: 1.1rem;
   color: #aaaaaa;
-  margin-bottom: 10px;
 }
 
 /* === CTA === */
@@ -69,32 +68,56 @@ section {
   border-bottom: 1px solid #222;
 }
 
-section:nth-child(even) {
+.alt-bg {
   background: #111111;
 }
 
-section h2 {
+.section-title {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 50px;
   color: #ffffff;
 }
 
+/* === Section étroite === */
+.section-narrow {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.section-narrow h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.section-narrow h3 {
+  font-size: 1.2rem;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.section-narrow p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #cccccc;
+  margin-bottom: 20px;
+}
+
+.section-narrow p:last-child {
+  margin-bottom: 0;
+}
+
 /* === Grilles === */
-.grid-3, .grid-4 {
+.grid-3 {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
 }
 
-.grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.grid-4 {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-/* === Cards === */
+/* === Cards de base === */
 .card {
   background: #1a1a1a;
   border: 1px solid #333;
@@ -143,296 +166,6 @@ section h2 {
   font-weight: bold;
 }
 
-/* === Portfolio === */
-.projet span {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 4px 12px;
-  background: #333;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  color: #cccccc;
-}
-
-/* === Contact === */
-#contact {
-  background: #0a0a0a;
-  text-align: center;
-  border-bottom: none;
-}
-
-#contact a {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-#contact a:hover {
-  color: #cccccc;
-}
-
-/* === Footer === */
-footer {
-  text-align: center;
-  padding: 30px 20px;
-  font-size: 0.9rem;
-  color: #666;
-  border-top: 1px solid #222;
-}
-
-footer a {
-  color: #888;
-  text-decoration: none;
-}
-
-footer a:hover {
-  color: #ffffff;
-  text-decoration: underline;
-}
-
-/* === Responsive === */
-@media (max-width: 600px) {
-
-  header {
-    padding: 30px 10px 25px;
-  }
-
-  .header-inner {
-    gap: 15px;
-  }
-
-  .logo-large {
-    max-width: 95vw;
-    width: 95vw;
-  }
-
-  section {
-    padding: 50px 15px;
-  }
-
-  section h2 {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-  }
-
-  .prix {
-    font-size: 2rem;
-  }
-
-  .cta {
-    padding: 10px 25px;
-  }
-
-  .card {
-    padding: 20px;
-  }
-}
-
-/* === Section étroite (narration) === */
-.section-narrow {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.section-narrow p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 20px;
-  color: #cccccc;
-}
-
-.closing-line {
-  font-size: 1.2rem !important;
-  font-weight: bold;
-  color: #ffffff !important;
-  margin-top: 30px !important;
-}
-
-/* === Fond alterné === */
-.alt-bg {
-  background: #111111;
-}
-
-/* === Rubriques avec images === */
-.row {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.row-reverse {
-  flex-direction: row-reverse;
-}
-
-.col-text {
-  flex: 1 1 300px;
-}
-
-.col-text h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  text-align: left;
-  color: #ffffff;
-}
-
-.col-text p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #cccccc;
-  margin-bottom: 15px;
-}
-
-.col-text p:last-child {
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.col-img {
-  flex: 1 1 300px;
-  text-align: center;
-}
-
-.illustration {
-  max-width: 100%;
-  height: auto;
-  border-radius: 4px;
-}
-
-/* === Cards avec icônes === */
-.card-icon {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 15px;
-  object-fit: contain;
-}
-
-/* === Miniatures portfolio === */
-.card-thumb {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-/* === Section title centré === */
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 50px;
-  color: #ffffff;
-}
-
-/* === Responsive === */
-@media (max-width: 768px) {
-  .row, .row-reverse {
-    flex-direction: column;
-  }
-
-  .col-text h2 {
-    font-size: 1.5rem;
-    text-align: center;
-  }
-
-  .col-text p {
-    text-align: center;
-  }
-
-  .illustration {
-    order: -1;
-    max-width: 80%;
-    margin-bottom: 20px;
-  }
-}
-
-/* === Navigation === */
-.nav-main {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 15px;
-}
-
-.nav-main a {
-  color: #aaa;
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-.nav-main a:hover {
-  color: #fff;
-}
-
-/* === Liste d'icônes === */
-.feature-list, .steps-list {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
-
-.feature-list li, .steps-list li {
-  padding: 10px 0;
-  border-bottom: 1px solid #222;
-  color: #ccc;
-  line-height: 1.6;
-}
-
-.feature-list li strong, .steps-list li strong {
-  color: #fff;
-}
-
-/* === Image pleine largeur === */
-.img-full {
-  width: 100%;
-  height: auto;
-  margin-top: 30px;
-  border-radius: 4px;
-}
-
-/* === Note centrée === */
-.center-note {
-  text-align: center;
-  margin-top: 30px;
-  color: #aaa;
-}
-
-.center-note a {
-  color: #fff;
-}
-
-/* === Section étroite === */
-.section-narrow {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: left;
-}
-
-.section-narrow h2 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #ffffff;
-}
-
-.section-narrow h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  color: #ffffff;
-}
-
-.section-narrow p, .section-narrow li {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: #cccccc;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 50px;
-  color: #ffffff;
-}
-
 /* === Feature list === */
 .feature-list {
   list-style: none;
@@ -443,25 +176,13 @@ footer a:hover {
 .feature-list li {
   padding: 8px 0;
   border-bottom: 1px solid #222;
+  color: #cccccc;
+  font-size: 1.05rem;
+  line-height: 1.6;
 }
 
 .feature-list li strong {
   color: #ffffff;
-}
-
-/* === Card thumb === */
-.card-thumb {
-  width: 100%;
-  height: auto;
-  border-radius: 4px;
-  margin-bottom: 15px;
-}
-
-/* === Responsive === */
-@media (max-width: 600px) {
-  .section-narrow h2 {
-    font-size: 1.5rem;
-  }
 }
 
 /* === Portfolio Cards === */
@@ -546,4 +267,78 @@ footer a:hover {
   display: block;
   font-size: 0.7rem;
   color: #5a8a7e;
+}
+
+/* === Contact === */
+#contact {
+  background: #0a0a0a;
+  text-align: center;
+  border-bottom: none;
+}
+
+#contact a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+#contact a:hover {
+  color: #cccccc;
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 0.9rem;
+  color: #666;
+  border-top: 1px solid #222;
+}
+
+footer a {
+  color: #888;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+
+  header {
+    padding: 30px 10px 25px;
+  }
+
+  .header-inner {
+    gap: 15px;
+  }
+
+  .logo-large {
+    max-width: 95vw;
+    width: 95vw;
+  }
+
+  section {
+    padding: 50px 15px;
+  }
+
+  .section-title,
+  .section-narrow h2 {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  .prix {
+    font-size: 2rem;
+  }
+
+  .cta {
+    padding: 10px 25px;
+  }
+
+  .card {
+    padding: 20px;
+  }
 }
