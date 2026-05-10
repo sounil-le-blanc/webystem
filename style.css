@@ -226,3 +226,29 @@ footer a:hover {
     padding: 20px;
   }
 }
+
+/* === Section étroite (narration) === */
+.section-narrow {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.section-narrow p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  color: #cccccc;
+}
+
+.closing-line {
+  font-size: 1.2rem !important;
+  font-weight: bold;
+  color: #ffffff !important;
+  margin-top: 30px !important;
+}
+
+/* === Fond alterné === */
+.alt-bg {
+  background: #111111;
+}
