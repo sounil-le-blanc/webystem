@@ -400,3 +400,66 @@ footer a:hover {
 .center-note a {
   color: #fff;
 }
+
+/* === Section étroite === */
+.section-narrow {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.section-narrow h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.section-narrow h3 {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.section-narrow p, .section-narrow li {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #cccccc;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 50px;
+  color: #ffffff;
+}
+
+/* === Feature list === */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.feature-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #222;
+}
+
+.feature-list li strong {
+  color: #ffffff;
+}
+
+/* === Card thumb === */
+.card-thumb {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+/* === Responsive === */
+@media (max-width: 600px) {
+  .section-narrow h2 {
+    font-size: 1.5rem;
+  }
+}
