@@ -30,6 +30,33 @@
   <link rel="manifest" href="/site.webmanifest">
   
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* === Icônes noir et blanc === */
+    .icon-bw {
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+      vertical-align: middle;
+      margin-right: 0.3em;
+      background-color: #fff;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      -webkit-mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+    }
+    .icon-globe { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='2' y1='12' x2='22' y2='12' stroke='white' stroke-width='2'/%3E%3Cpath d='M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='2' y1='12' x2='22' y2='12' stroke='white' stroke-width='2'/%3E%3Cpath d='M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-mail { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='4' width='20' height='16' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M2 7l10 7 10-7' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='4' width='20' height='16' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M2 7l10 7 10-7' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-phone { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-card { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='4' width='20' height='16' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='2' y1='10' x2='22' y2='10' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='2' y='4' width='20' height='16' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cline x1='2' y1='10' x2='22' y2='10' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-pin { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='12' cy='10' r='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='12' cy='10' r='3' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-bolt { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-lock { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M7 11V7a5 5 0 0110 0v4' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' fill='none' stroke='white' stroke-width='2'/%3E%3Cpath d='M7 11V7a5 5 0 0110 0v4' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-folder { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-shield { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+    .icon-target { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='2' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='white' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='2' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E"); }
+  </style>
 </head>
 <body>
 
@@ -50,11 +77,11 @@
         <h2>Ce que je fais.</h2>
         <p>Je vous accompagne sur tous vos outils de communication numérique :</p>
         <ul class="feature-list">
-          <li>🌐 <strong>Site web</strong> — Vitrine, landing page, ou outil métier.</li>
-          <li>📧 <strong>Email pro</strong> — Adresse à votre nom, configurée et livrée.</li>
-          <li>📞 <strong>Téléphone pro</strong> — Numéro dédié, sans deuxième mobile.</li>
-          <li>🖼️ <strong>Cartes de visite</strong> — Design sobre, QR code, expédition incluse.</li>
-          <li>📍 <strong>Fiche Google</strong> — Pour être trouvé localement.</li>
+          <li><span class="icon-bw icon-globe"></span> <strong>Site web</strong> — Vitrine, landing page, ou outil métier.</li>
+          <li><span class="icon-bw icon-mail"></span> <strong>Email pro</strong> — Adresse à votre nom, configurée et livrée.</li>
+          <li><span class="icon-bw icon-phone"></span> <strong>Téléphone pro</strong> — Numéro dédié, sans deuxième mobile.</li>
+          <li><span class="icon-bw icon-card"></span> <strong>Cartes de visite</strong> — Design sobre, QR code, expédition incluse.</li>
+          <li><span class="icon-bw icon-pin"></span> <strong>Fiche Google</strong> — Pour être trouvé localement.</li>
         </ul>
         <p>Un seul interlocuteur. Des prix transparents. Une réactivité de tous les instants. Vous restez libre de changer quand vous voulez.</p>
       </div>
@@ -63,11 +90,11 @@
     <!-- Offre de lancement -->
     <section id="lancement" class="alt-bg">
       <div class="container section-narrow">
-        <h2>🎯 Offre de lancement — 7 portfolios gratuits.</h2>
+        <h2><span class="icon-bw icon-target"></span> Offre de lancement — 7 portfolios gratuits.</h2>
         <p>Pour mes 7 premiers clients, je crée votre site <strong>gratuitement</strong>. Vous ne payez que ce qui vous appartient :</p>
         <ul class="feature-list">
-          <li>🌐 <strong>Nom de domaine</strong> — ~10 €/an, à votre nom.</li>
-          <li>📞 <strong>Téléphone pro</strong> — ~13 €/mois, sans engagement.</li>
+          <li><span class="icon-bw icon-globe"></span> <strong>Nom de domaine</strong> — ~10 €/an, à votre nom.</li>
+          <li><span class="icon-bw icon-phone"></span> <strong>Téléphone pro</strong> — ~13 €/mois, sans engagement.</li>
         </ul>
         <p>Vous gardez tout. Le code, le site, les accès. Aucun engagement. <strong>Plus que quelques places disponibles.</strong></p>
         <p style="text-align: center; margin-top: 20px;">
@@ -122,22 +149,33 @@
       <div class="container section-narrow">
         <h2>Ma différence.</h2>
 
-        <h3>🚀 Rapide et réactif.</h3>
+        <h3><span class="icon-bw icon-bolt"></span> Rapide et réactif.</h3>
         <p>Un devis en 24h. Un site livré en 3 à 7 jours. Vous m'appelez, je réponds. Vous m'écrivez, je rappelle dans la foulée. Pas de comité, pas de validation à trois étages. Juste vous et moi.</p>
 
-        <h3>🔓 Prix clairs, pas de surprises.</h3>
+        <h3><span class="icon-bw icon-lock"></span> Prix clairs, pas de surprises.</h3>
         <p>Les prix affichés sont les prix finaux. Pas de frais cachés, pas de petite ligne en bas de page. Vous savez exactement ce que vous payez, et pourquoi.</p>
 
-        <h3>📂 Vous restez libre.</h3>
+        <h3><span class="icon-bw icon-folder"></span> Vous restez libre.</h3>
         <p>Le nom de domaine est à votre nom. Le code source vous est livré. Si vous voulez changer de prestataire, vous prenez vos affaires et vous partez. En 5 minutes, sans rien me devoir. C'est votre outil, pas le mien.</p>
 
-        <h3>🛡️ Sans engagement.</h3>
+        <h3><span class="icon-bw icon-shield"></span> Sans engagement.</h3>
         <p>Pas de contrat qui vous enferme. Pas d'abonnement caché. Vous payez une fois. L'hébergement coûte 30 à 70 € par an, et c'est tout.</p>
       </div>
     </section>
 
+    <!-- Manifeste -->
+    <section id="manifeste">
+      <div class="container section-narrow" style="text-align: center;">
+        <h2>Le manifeste du web artisanal.</h2>
+        <p>Le web est devenu une industrie. Des usines à code. Des abonnements sans fin. Nous croyons qu'un site web est un objet artisanal. Comme une table. Comme une façade. Fait main. Durable. Souverain.</p>
+        <p style="margin-top: 20px;">
+          <a href="/manifeste.html" class="cta">Lire le manifeste</a>
+        </p>
+      </div>
+    </section>
+
     <!-- Portfolio -->
-    <section id="portfolio">
+    <section id="portfolio" class="alt-bg">
       <div class="container">
         <h2 class="section-title">Ils m'ont fait confiance.</h2>
         <div class="grid-3">
@@ -174,13 +212,13 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="alt-bg">
+    <section id="contact">
       <div class="container section-narrow">
         <h2>On en parle ?</h2>
         <p>Appelez-moi ou écrivez-moi. Je réponds rapidement, sans engagement.</p>
-        <p>📞 <a href="tel:+33756933857">07 56 93 38 57</a></p>
-        <p>✉️ <a href="mailto:contact@webystem.com">contact@webystem.com</a></p>
-        <p>📍 Île-de-France — Déplacement possible</p>
+        <p><span class="icon-bw icon-phone"></span> <a href="tel:+33756933857">07 56 93 38 57</a></p>
+        <p><span class="icon-bw icon-mail"></span> <a href="mailto:contact@webystem.com">contact@webystem.com</a></p>
+        <p><span class="icon-bw icon-pin"></span> Île-de-France — Déplacement possible</p>
       </div>
     </section>
 
@@ -189,7 +227,7 @@
   <footer>
     <div class="container">
       <p>© 2026 Webystem — Sounil Le Blanc, gérant</p>
-      <p><a href="/mentions-legales.html">Mentions légales</a> — <a href="/politique-confidentialite.html">Politique de confidentialité</a></p>
+      <p><a href="/mentions-legales.html">Mentions légales</a> — <a href="/politique-confidentialite.html">Politique de confidentialité</a> — <a href="/manifeste.html">Manifeste</a></p>
     </div>
   </footer>
 
