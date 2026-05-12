@@ -242,10 +242,11 @@
 </div>
 
 <script>
+    // UN SEUL client Supabase pour toute la page
     const supabaseClient = supabase.createClient(
-    'https://zjywzpyuiverfxmzjlpq.supabase.co',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
-);
+        'https://zjywzpyuiverfxmzjlpq.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
+    );
 
     let selectedSlot = null;
     const calendar = document.getElementById('calendar');
@@ -259,24 +260,27 @@
             .order('value');
 
         if (error) {
-            calendar.innerHTML = '<p style="color: var(--text-secondary);">Erreur de chargement des créneaux.</p>';
+            calendar.innerHTML = '<p style="color: #ccc;">Erreur de chargement.</p>';
+            console.error(error);
             return;
         }
 
         if (!slots || slots.length === 0) {
-            calendar.innerHTML = '<p style="color: var(--text-secondary);">Aucun créneau disponible pour le moment.</p>';
+            calendar.innerHTML = '<p style="color: #ccc;">Aucun créneau pour le moment.</p>';
             return;
         }
+
+        calendar.innerHTML = '';
 
         slots.forEach(slot => {
             const div = document.createElement('div');
             
             if (slot.booked) {
                 div.className = 'slot taken';
-                div.innerHTML = `<strong>${slot.date}</strong><br>${slot.time}<br><small>Réservé</small>`;
+                div.innerHTML = '<strong>' + slot.date + '</strong><br>' + slot.time + '<br><small>Réservé</small>';
             } else {
                 div.className = 'slot';
-                div.innerHTML = `<strong>${slot.date}</strong><br>${slot.time}`;
+                div.innerHTML = '<strong>' + slot.date + '</strong><br>' + slot.time;
                 div.addEventListener('click', () => {
                     document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
                     div.classList.add('selected');
@@ -304,18 +308,17 @@
         msg.className = '';
 
         try {
-            // Marquer le créneau comme réservé en attente
             const { error: updateError } = await supabaseClient
                 .from('slots')
                 .update({ booked: true, booked_by: email, booked_at: new Date() })
                 .eq('id', selectedSlot.id);
 
             if (updateError) {
-                msg.textContent = 'Ce créneau vient d\'être réservé. Choisis-en un autre.';
+                msg.textContent = 'Ce créneau vient d\'être réservé.';
                 msg.className = 'error';
                 btnReserve.disabled = false;
                 btnReserve.textContent = 'Réserver et payer — 80 €';
-                loadSlots(); // Rafraîchir les créneaux
+                loadSlots();
                 return;
             }
 
@@ -335,7 +338,6 @@
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                // Libérer le créneau si erreur
                 await supabaseClient
                     .from('slots')
                     .update({ booked: false, booked_by: null, booked_at: null })
@@ -348,7 +350,6 @@
                 loadSlots();
             }
         } catch (error) {
-            // Libérer le créneau si erreur réseau
             await supabaseClient
                 .from('slots')
                 .update({ booked: false, booked_by: null, booked_at: null })
@@ -362,7 +363,6 @@
         }
     });
 
-    // Charger les créneaux au démarrage
     loadSlots();
 </script>
 </body>
