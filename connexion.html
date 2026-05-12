@@ -231,13 +231,33 @@
             msg.className = 'error';
             submitBtn.disabled = false;
             submitBtn.textContent = 'Se connecter';
-        } else {
-            msg.textContent = '✅ Connecté ! Redirection...';
-            msg.className = 'success';
-            setTimeout(() => {
-                window.location.href = '/profil.html';
-            }, 1000);
+            return;
         }
+
+        // ✅ Connecté. Vérifier si le compte est actif.
+        const userId = data.user.id;
+
+        const { data: profile, error: profileError } = await supabaseClient
+            .from('profiles')
+            .select('active')
+            .eq('id', userId)
+            .single();
+
+        if (profile && profile.active === false) {
+            msg.textContent = '❌ Ce compte est désactivé. Contacte contact@webystem.com pour le réactiver.';
+            msg.className = 'error';
+            await supabaseClient.auth.signOut();
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Se connecter';
+            return;
+        }
+
+        // ✅ Compte actif → redirection
+        msg.textContent = '✅ Connecté ! Redirection...';
+        msg.className = 'success';
+        setTimeout(() => {
+            window.location.href = '/profil.html';
+        }, 1000);
     });
 
     async function resetPassword() {

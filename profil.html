@@ -39,7 +39,6 @@
             padding-top: 100px;
         }
 
-        /* Icônes noir et blanc */
         .icon-bw {
             display: inline-block;
             width: 1.2em; height: 1.2em;
@@ -118,16 +117,11 @@
             font-size: 0.9rem;
             transition: border-color 0.2s, color 0.2s;
         }
-        .quick-link:hover {
-            border-color: var(--accent);
-            color: var(--text);
-        }
+        .quick-link:hover { border-color: var(--accent); color: var(--text); }
         .quick-link .icon-bw { background-color: #aaa; width: 1em; height: 1em; }
         .quick-link:hover .icon-bw { background-color: #fff; }
 
-        .profile-info {
-            text-align: left; margin-bottom: 1.5rem;
-        }
+        .profile-info { text-align: left; margin-bottom: 1.5rem; }
 
         .profile-info p {
             font-size: 0.95rem; color: var(--text-secondary);
@@ -195,21 +189,14 @@
             <p class="welcome-message" id="welcome-message"></p>
 
             <div class="quick-access">
-                <a href="#" class="quick-link">
-                    <span class="icon-bw icon-calendar"></span> Mes réservations
-                </a>
-                <a href="#" class="quick-link">
-                    <span class="icon-bw icon-mail"></span> Mes messages
-                </a>
+                <a href="#" class="quick-link"><span class="icon-bw icon-calendar"></span> Mes réservations</a>
+                <a href="#" class="quick-link"><span class="icon-bw icon-mail"></span> Mes messages</a>
             </div>
 
             <div class="profile-info">
                 <p><strong><span class="icon-bw icon-mail"></span> Email :</strong> <span id="profile-email"></span></p>
                 <p><strong><span class="icon-bw icon-calendar"></span> Inscrit le :</strong> <span id="profile-created"></span></p>
-                <p>
-                    <strong>Statut :</strong>
-                    <span id="profile-status" class="status-badge"></span>
-                </p>
+                <p><strong>Statut :</strong> <span id="profile-status" class="status-badge"></span></p>
             </div>
 
             <div id="message"></div>
@@ -221,8 +208,8 @@
                 <span class="icon-bw icon-logout"></span> Se déconnecter
             </button>
             <button class="btn btn-danger" onclick="deleteAccount()" style="background: #666; margin-top: 1rem;">
-    🗑️ Supprimer mon compte
-</button>
+                🗑️ Supprimer mon compte
+            </button>
         </div>
 
         <div id="not-logged" style="display: none;">
@@ -295,43 +282,24 @@
     }
 
     async function deleteAccount() {
-    const confirmation = confirm("Es-tu sûr de vouloir supprimer définitivement ton compte ? Cette action est irréversible.");
-    if (!confirmation) return;
+        const confirmation = confirm("Supprimer définitivement ton compte ? Cette action est IRRÉVERSIBLE.");
+        if (!confirmation) return;
 
-    const msg = document.getElementById('message');
-    msg.textContent = '⏳ Suppression en cours...';
-    msg.className = '';
+        const msg = document.getElementById('message');
+        msg.textContent = '⏳ Suppression en cours...';
+        msg.className = '';
 
-    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-    if (userError || !user) {
-        msg.textContent = "Erreur : utilisateur non trouvé.";
-        msg.className = 'error';
-        return;
+        const { error } = await supabaseClient.rpc('delete_user_complete');
+
+        if (error) {
+            msg.textContent = 'Erreur : ' + error.message;
+            msg.className = 'error';
+            return;
+        }
+
+        await supabaseClient.auth.signOut();
+        window.location.href = '/?compte=supprime';
     }
-
-    // 1. Supprimer le profil
-    await supabaseClient.from('profiles').delete().eq('id', user.id);
-
-    // 2. Rendre le compte inutilisable via l'API REST Supabase
-    const { data: { session } } = await supabaseClient.auth.getSession();
-    if (session) {
-        await fetch(SUPABASE_URL + '/auth/v1/user', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + session.access_token,
-                'apikey': SUPABASE_ANON_KEY,
-            },
-            body: JSON.stringify({ email: 'deleted_' + Date.now() + '@deleted.com' }),
-        });
-    }
-
-    // 3. Déconnecter
-    await supabaseClient.auth.signOut();
-
-    // 4. Rediriger
-    window.location.href = '/?compte=supprime';
-}
 
     async function logout() {
         await supabaseClient.auth.signOut();
