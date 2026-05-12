@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coaching — Webystem</title>
+    <title>Réserver un coaching — Webystem</title>
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="shortcut icon" href="/favicon.ico">
@@ -18,6 +18,7 @@
             --text-secondary: #cccccc;
             --border: #333;
             --accent: #ffffff;
+            --success: #4CAF50;
             --error: #D32F2F;
         }
 
@@ -46,7 +47,6 @@
         }
         .icon-arrow-left { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
         .icon-coaching { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 20h9' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 20h9' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
-        .icon-check { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolyline points='20 6 9 17 4 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolyline points='20 6 9 17 4 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
         .icon-clock { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Cpolyline points='12 6 12 12 16 14' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Cpolyline points='12 6 12 12 16 14' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
 
         .navbar {
@@ -88,12 +88,6 @@
             display: flex; align-items: center; gap: 0.5rem;
         }
 
-        h2 {
-            font-size: 1.3rem; font-weight: 600;
-            color: var(--text); margin-bottom: 1rem;
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-
         .tagline {
             font-size: 1.1rem;
             color: var(--text-secondary);
@@ -110,35 +104,55 @@
             margin-bottom: 1.5rem;
         }
 
-        .price-amount {
-            font-size: 3rem; font-weight: 700;
-            color: var(--text);
+        .price-amount { font-size: 3rem; font-weight: 700; color: var(--text); }
+        .price-detail { font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem; }
+
+        /* Calendrier */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
-        .price-detail {
+        .slot {
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
             font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-top: 0.5rem;
         }
 
-        .info-list {
-            list-style: none;
-            margin-bottom: 2rem;
-        }
+        .slot:hover { border-color: var(--accent); color: var(--text); }
+        .slot.selected { background: var(--accent); color: var(--bg); font-weight: 600; }
+        .slot.taken { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
 
-        .info-list li {
-            display: flex; align-items: flex-start; gap: 0.5rem;
-            padding: 0.6rem 0;
-            border-bottom: 1px solid var(--border);
+        .calendar-label {
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
 
-        .info-list li .icon-bw {
-            margin-top: 0.2em;
-            flex-shrink: 0;
+        /* Formulaire */
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: system-ui, sans-serif;
+            font-size: 1rem;
+            background: var(--bg);
+            color: var(--text);
+            transition: border-color 0.2s;
         }
+        input:focus { outline: none; border-color: var(--accent); }
 
         .btn {
             display: block; width: 100%;
@@ -155,6 +169,7 @@
             transition: opacity 0.2s;
         }
         .btn:hover { opacity: 0.9; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .conditions {
             margin-top: 2rem;
@@ -164,10 +179,19 @@
             line-height: 1.6;
         }
 
+        #message {
+            margin-top: 1rem; font-weight: 600;
+            font-size: 0.9rem; min-height: 1.5rem;
+            text-align: center;
+        }
+        .success { color: var(--success); }
+        .error { color: var(--error); }
+
         @media (max-width: 600px) {
             .card { padding: 1.5rem; }
             h1 { font-size: 1.5rem; }
             .price-amount { font-size: 2.5rem; }
+            .calendar { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -183,12 +207,11 @@
 
 <div class="main-content">
 
-    <!-- Présentation -->
     <div class="card">
         <h1><span class="icon-bw icon-coaching"></span> Coaching Orientation & IA</h1>
         <p class="tagline">
-            Tu veux travailler dans le web. Tu ne sais pas par où commencer. 
-            Tu as peur de l'IA. Prends 2 heures avec moi. On fait le point. 
+            Tu veux travailler dans le web. Tu ne sais pas par où commencer.
+            Tu as peur de l'IA. Prends 2 heures avec moi. On fait le point.
             Tu repars avec un plan d'action concret.
         </p>
 
@@ -197,22 +220,17 @@
             <div class="price-detail">2 heures en visio</div>
         </div>
 
-        <ul class="info-list">
-            <li>
-                <span class="icon-bw icon-clock"></span>
-                <span>2h en visio Zoom. Je t'écoute, je te guide, je te donne un plan.</span>
-            </li>
-            <li>
-                <span class="icon-bw icon-check"></span>
-                <span>Tu repars avec une direction claire et des actions concrètes.</span>
-            </li>
-            <li>
-                <span class="icon-bw icon-check"></span>
-                <span>Pas de bullshit. Pas de vente cachée. Juste du conseil.</span>
-            </li>
-        </ul>
+        <!-- Calendrier -->
+        <div class="calendar-label"><span class="icon-bw icon-clock"></span> Choisis un créneau</div>
+        <div class="calendar" id="calendar"></div>
 
-        <a href="#" class="btn" id="btn-reserve">Réserver ma séance — 80 €</a>
+        <!-- Formulaire -->
+        <input type="text" id="name" placeholder="Ton prénom" required>
+        <input type="email" id="email" placeholder="Ton email" required>
+
+        <button class="btn" id="btn-reserve" disabled>Choisis un créneau</button>
+
+        <div id="message"></div>
 
         <p class="conditions">
             Une fois la date calée, un seul report possible.<br>
@@ -223,17 +241,91 @@
 </div>
 
 <script>
-    document.getElementById('btn-reserve').addEventListener('click', async (e) => {
-        e.preventDefault();
-        
-        const btn = document.getElementById('btn-reserve');
-        btn.textContent = '⏳ Redirection vers Stripe...';
-        btn.disabled = true;
+    const SUPABASE_URL = 'https://zjywzpyuiverfxmzjlpq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let selectedSlot = null;
+    const calendar = document.getElementById('calendar');
+    const btnReserve = document.getElementById('btn-reserve');
+    const msg = document.getElementById('message');
+
+    async function loadSlots() {
+        const { data: slots, error } = await supabaseClient
+            .from('slots')
+            .select('*')
+            .order('value');
+
+        if (error) {
+            calendar.innerHTML = '<p style="color: var(--text-secondary);">Erreur de chargement des créneaux.</p>';
+            return;
+        }
+
+        if (!slots || slots.length === 0) {
+            calendar.innerHTML = '<p style="color: var(--text-secondary);">Aucun créneau disponible pour le moment.</p>';
+            return;
+        }
+
+        slots.forEach(slot => {
+            const div = document.createElement('div');
+            
+            if (slot.booked) {
+                div.className = 'slot taken';
+                div.innerHTML = `<strong>${slot.date}</strong><br>${slot.time}<br><small>Réservé</small>`;
+            } else {
+                div.className = 'slot';
+                div.innerHTML = `<strong>${slot.date}</strong><br>${slot.time}`;
+                div.addEventListener('click', () => {
+                    document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+                    div.classList.add('selected');
+                    selectedSlot = slot;
+                    btnReserve.disabled = false;
+                    btnReserve.textContent = 'Réserver et payer — 80 €';
+                });
+            }
+            
+            calendar.appendChild(div);
+        });
+    }
+
+    btnReserve.addEventListener('click', async () => {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        if (!name) { msg.textContent = 'Entre ton prénom.'; msg.className = 'error'; return; }
+        if (!email) { msg.textContent = 'Entre ton email.'; msg.className = 'error'; return; }
+        if (!selectedSlot) { msg.textContent = 'Choisis un créneau.'; msg.className = 'error'; return; }
+
+        btnReserve.disabled = true;
+        btnReserve.textContent = '⏳ Redirection vers Stripe...';
+        msg.textContent = '';
+        msg.className = '';
 
         try {
+            // Marquer le créneau comme réservé en attente
+            const { error: updateError } = await supabaseClient
+                .from('slots')
+                .update({ booked: true, booked_by: email, booked_at: new Date() })
+                .eq('id', selectedSlot.id);
+
+            if (updateError) {
+                msg.textContent = 'Ce créneau vient d\'être réservé. Choisis-en un autre.';
+                msg.className = 'error';
+                btnReserve.disabled = false;
+                btnReserve.textContent = 'Réserver et payer — 80 €';
+                loadSlots(); // Rafraîchir les créneaux
+                return;
+            }
+
             const response = await fetch('/api/create-coaching-checkout', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    name: name,
+                    slot: selectedSlot.value,
+                    slotLabel: selectedSlot.date + ' ' + selectedSlot.time,
+                }),
             });
 
             const data = await response.json();
@@ -241,16 +333,35 @@
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                alert('Erreur : ' + (data.error || 'Impossible de créer la session.'));
-                btn.textContent = 'Réserver ma séance — 80 €';
-                btn.disabled = false;
+                // Libérer le créneau si erreur
+                await supabaseClient
+                    .from('slots')
+                    .update({ booked: false, booked_by: null, booked_at: null })
+                    .eq('id', selectedSlot.id);
+
+                msg.textContent = 'Erreur : ' + (data.error || 'Impossible de créer la session.');
+                msg.className = 'error';
+                btnReserve.disabled = false;
+                btnReserve.textContent = 'Réserver et payer — 80 €';
+                loadSlots();
             }
         } catch (error) {
-            alert('Erreur réseau. Réessaie ou contacte-moi : contact@webystem.com');
-            btn.textContent = 'Réserver ma séance — 80 €';
-            btn.disabled = false;
+            // Libérer le créneau si erreur réseau
+            await supabaseClient
+                .from('slots')
+                .update({ booked: false, booked_by: null, booked_at: null })
+                .eq('id', selectedSlot.id);
+
+            msg.textContent = 'Erreur réseau. Contacte-moi : contact@webystem.com';
+            msg.className = 'error';
+            btnReserve.disabled = false;
+            btnReserve.textContent = 'Réserver et payer — 80 €';
+            loadSlots();
         }
     });
+
+    // Charger les créneaux au démarrage
+    loadSlots();
 </script>
 </body>
 </html>
