@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion — Webystem</title>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Webystem">
+    <link rel="manifest" href="/site.webmanifest">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+            --border: #333;
+            --accent: #ffffff;
+            --success: #4CAF50;
+            --error: #D32F2F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Icônes noir et blanc */
+        .icon-bw {
+            display: inline-block;
+            width: 1.2em; height: 1.2em;
+            vertical-align: middle;
+            margin-right: 0.3em;
+            background-color: #fff;
+            mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+            -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+        }
+        .icon-arrow-left { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+        .icon-login { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M15 12H3' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--border); height: 55px;
+        }
+        .navbar-container {
+            width: 100%; height: 100%; padding: 0 1.2rem;
+            display: flex; align-items: center;
+        }
+        .back-arrow {
+            display: flex; align-items: center; gap: 0.5rem;
+            color: #aaa; text-decoration: none; font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .back-arrow:hover { color: #fff; }
+        .back-arrow .icon-bw { background-color: #aaa; width: 1em; height: 1em; }
+        .back-arrow:hover .icon-bw { background-color: #fff; }
+
+        .container {
+            position: relative; z-index: 2;
+            max-width: 480px; width: 100%;
+            margin-top: 60px;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem; font-weight: 700;
+            color: var(--text); margin-bottom: 0.3rem;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: system-ui, sans-serif;
+            font-size: 1rem;
+            background: var(--bg);
+            color: var(--text);
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            margin-top: 0.5rem;
+        }
+        button:hover { opacity: 0.9; transform: translateY(-1px); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        #message {
+            margin-top: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            min-height: 1.5rem;
+        }
+        .success { color: var(--success); }
+        .error { color: var(--error); }
+
+        .switch-link {
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .switch-link a {
+            color: var(--text);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .switch-link a:hover { opacity: 0.8; }
+
+        .forgot-link {
+            margin-top: 0.3rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .forgot-link a {
+            color: #aaa;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .forgot-link a:hover { color: #fff; }
+
+        @media (max-width: 600px) {
+            .form-card { padding: 2rem 1.5rem; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="back-arrow">
+            <span class="icon-bw icon-arrow-left"></span> Retour
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="form-card">
+        <h1><span class="icon-bw icon-login"></span> Connexion</h1>
+        <p class="subtitle">Retrouvez votre espace Webystem</p>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="Email" required autocomplete="email">
+            <input type="password" id="password" placeholder="Mot de passe" required autocomplete="current-password">
+            <button type="submit" id="submitBtn">Se connecter</button>
+        </form>
+        <div id="message"></div>
+        <div class="forgot-link">
+            <a onclick="resetPassword()">Mot de passe oublié ?</a>
+        </div>
+        <div class="switch-link">
+            Pas encore inscrit ? <a href="inscription.html">S'inscrire</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    const SUPABASE_URL = 'https://zjywzpyuiverfxmzjlpq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form = document.getElementById('login-form');
+    const msg = document.getElementById('message');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = '⏳ Connexion...';
+        msg.textContent = '';
+        msg.className = '';
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
+
+        if (error) {
+            let errorMsg = error.message;
+            if (error.message.includes('Invalid login credentials')) {
+                errorMsg = 'Email ou mot de passe incorrect.';
+            }
+            msg.textContent = errorMsg;
+            msg.className = 'error';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Se connecter';
+        } else {
+            msg.textContent = '✅ Connecté ! Redirection...';
+            msg.className = 'success';
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1000);
+        }
+    });
+
+    async function resetPassword() {
+        const email = prompt("Entrez votre email pour réinitialiser votre mot de passe :");
+        if (!email) return;
+
+        msg.textContent = '';
+        msg.className = '';
+
+        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+            redirectTo: window.location.origin + '/connexion.html'
+        });
+
+        if (error) {
+            msg.textContent = 'Erreur : ' + error.message;
+            msg.className = 'error';
+        } else {
+            msg.textContent = '✅ Email envoyé ! Vérifiez votre boîte.';
+            msg.className = 'success';
+        }
+    }
+</script>
+</body>
+</html>

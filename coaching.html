@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coaching — Webystem</title>
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Webystem">
+    <link rel="manifest" href="/site.webmanifest">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text: #ffffff;
+            --text-secondary: #cccccc;
+            --border: #333;
+            --accent: #ffffff;
+            --error: #D32F2F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            padding-top: 100px;
+        }
+
+        .icon-bw {
+            display: inline-block;
+            width: 1.2em; height: 1.2em;
+            vertical-align: middle;
+            margin-right: 0.3em;
+            background-color: #fff;
+            mask-size: contain; mask-repeat: no-repeat; mask-position: center;
+            -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; -webkit-mask-position: center;
+        }
+        .icon-arrow-left { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 12H5M12 19l-7-7 7-7' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+        .icon-coaching { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 20h9' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 20h9' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+        .icon-check { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolyline points='20 6 9 17 4 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpolyline points='20 6 9 17 4 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+        .icon-clock { mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Cpolyline points='12 6 12 12 16 14' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='none' stroke='white' stroke-width='2'/%3E%3Cpolyline points='12 6 12 12 16 14' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(10px); z-index: 1000;
+            border-bottom: 1px solid var(--border); height: 55px;
+        }
+        .navbar-container {
+            width: 100%; height: 100%; padding: 0 1.2rem;
+            display: flex; align-items: center;
+        }
+        .back-arrow {
+            display: flex; align-items: center; gap: 0.5rem;
+            color: #aaa; text-decoration: none; font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .back-arrow:hover { color: #fff; }
+        .back-arrow .icon-bw { background-color: #aaa; width: 1em; height: 1em; }
+        .back-arrow:hover .icon-bw { background-color: #fff; }
+
+        .main-content {
+            position: relative; z-index: 2;
+            max-width: 650px; width: 100%;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem; font-weight: 700;
+            color: var(--text); margin-bottom: 0.5rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.3rem; font-weight: 600;
+            color: var(--text); margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .price-block {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-amount {
+            font-size: 3rem; font-weight: 700;
+            color: var(--text);
+        }
+
+        .price-detail {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .info-list {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .info-list li {
+            display: flex; align-items: flex-start; gap: 0.5rem;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .info-list li .icon-bw {
+            margin-top: 0.2em;
+            flex-shrink: 0;
+        }
+
+        .btn {
+            display: block; width: 100%;
+            padding: 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+
+        .conditions {
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .card { padding: 1.5rem; }
+            h1 { font-size: 1.5rem; }
+            .price-amount { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="back-arrow">
+            <span class="icon-bw icon-arrow-left"></span> Retour
+        </a>
+    </div>
+</nav>
+
+<div class="main-content">
+
+    <!-- Présentation -->
+    <div class="card">
+        <h1><span class="icon-bw icon-coaching"></span> Coaching Orientation & IA</h1>
+        <p class="tagline">
+            Tu veux travailler dans le web. Tu ne sais pas par où commencer. 
+            Tu as peur de l'IA. Prends 2 heures avec moi. On fait le point. 
+            Tu repars avec un plan d'action concret.
+        </p>
+
+        <div class="price-block">
+            <div class="price-amount">80 €</div>
+            <div class="price-detail">2 heures en visio</div>
+        </div>
+
+        <ul class="info-list">
+            <li>
+                <span class="icon-bw icon-clock"></span>
+                <span>2h en visio Zoom. Je t'écoute, je te guide, je te donne un plan.</span>
+            </li>
+            <li>
+                <span class="icon-bw icon-check"></span>
+                <span>Tu repars avec une direction claire et des actions concrètes.</span>
+            </li>
+            <li>
+                <span class="icon-bw icon-check"></span>
+                <span>Pas de bullshit. Pas de vente cachée. Juste du conseil.</span>
+            </li>
+        </ul>
+
+        <a href="#" class="btn" id="btn-reserve">Réserver ma séance — 80 €</a>
+
+        <p class="conditions">
+            Une fois la date calée, un seul report possible.<br>
+            Pas de remboursement. Sois là.
+        </p>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById('btn-reserve').addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btn-reserve');
+        btn.textContent = '⏳ Redirection vers Stripe...';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('/api/create-coaching-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            const data = await response.json();
+
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                alert('Erreur : ' + (data.error || 'Impossible de créer la session.'));
+                btn.textContent = 'Réserver ma séance — 80 €';
+                btn.disabled = false;
+            }
+        } catch (error) {
+            alert('Erreur réseau. Réessaie ou contacte-moi : contact@webystem.com');
+            btn.textContent = 'Réserver ma séance — 80 €';
+            btn.disabled = false;
+        }
+    });
+</script>
+</body>
+</html>
