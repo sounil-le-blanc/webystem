@@ -241,9 +241,10 @@
 </div>
 
 <script>
-    const SUPABASE_URL = 'https://zjywzpyuiverfxmzjlpq.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs';
-    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = supabase.createClient(
+    'https://zjywzpyuiverfxmzjlpq.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
+);
 
     let selectedSlot = null;
     const calendar = document.getElementById('calendar');
