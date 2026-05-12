@@ -233,10 +233,10 @@
 <script>
     const SUPABASE_URL = 'https://zjywzpyuiverfxmzjlpq.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     async function loadProfile() {
-        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        const { data: { user }, error: authError } = await supabaseClient.auth.getUser();
 
         if (authError || !user) {
             document.getElementById('loading').style.display = 'none';
@@ -250,7 +250,7 @@
         document.getElementById('profile-email').textContent = user.email;
         document.getElementById('profile-created').textContent = new Date(user.created_at).toLocaleDateString('fr-FR');
 
-        const { data: profile } = await supabase
+        const { data: profile } = await supabaseClient
             .from('profiles')
             .select('subscription_status')
             .eq('id', user.id)
@@ -271,14 +271,14 @@
     }
 
     async function changePassword() {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await supabaseClient.auth.getUser();
         if (!user) return;
 
         const msg = document.getElementById('message');
         msg.textContent = '';
         msg.className = '';
 
-        const { error } = await supabase.auth.resetPasswordForEmail(user.email, {
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(user.email, {
             redirectTo: window.location.origin + '/connexion.html'
         });
 
@@ -292,7 +292,7 @@
     }
 
     async function logout() {
-        await supabase.auth.signOut();
+        await supabaseClient.auth.signOut();
         window.location.href = '/';
     }
 
