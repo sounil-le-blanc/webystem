@@ -220,6 +220,9 @@
             <button class="btn btn-danger" onclick="logout()">
                 <span class="icon-bw icon-logout"></span> Se déconnecter
             </button>
+            <button class="btn btn-danger" onclick="deleteAccount()" style="background: #666; margin-top: 1rem;">
+    🗑️ Supprimer mon compte
+</button>
         </div>
 
         <div id="not-logged" style="display: none;">
@@ -289,6 +292,32 @@
             msg.textContent = '✅ Email envoyé ! Vérifiez votre boîte.';
             msg.className = 'success';
         }
+    }
+
+    async function deleteAccount() {
+        const confirmation = confirm("Es-tu sûr de vouloir supprimer définitivement ton compte ? Cette action est irréversible.");
+        if (!confirmation) return;
+
+        const msg = document.getElementById('message');
+        msg.textContent = '';
+        msg.className = '';
+
+        // 1. Récupérer l'utilisateur connecté
+        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+        if (userError || !user) {
+            msg.textContent = "Erreur : utilisateur non trouvé.";
+            msg.className = 'error';
+            return;
+        }
+
+        // 2. Supprimer son profil de la table profiles
+        await supabaseClient.from('profiles').delete().eq('id', user.id);
+
+        // 3. Déconnecter l'utilisateur
+        await supabaseClient.auth.signOut();
+
+        // 4. Rediriger vers la page d'accueil avec un message
+        window.location.href = '/?compte=supprime';
     }
 
     async function logout() {
