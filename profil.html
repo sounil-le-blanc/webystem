@@ -295,33 +295,43 @@
     }
 
     async function deleteAccount() {
-        const confirmation = confirm("Es-tu sûr de vouloir supprimer définitivement ton compte ? Cette action est irréversible.");
-        if (!confirmation) return;
+    const confirmation = confirm("Es-tu sûr de vouloir supprimer définitivement ton compte ? Cette action est irréversible.");
+    if (!confirmation) return;
 
-        const msg = document.getElementById('message');
-        msg.textContent = '⏳ Suppression en cours...';
-        msg.className = '';
+    const msg = document.getElementById('message');
+    msg.textContent = '⏳ Suppression en cours...';
+    msg.className = '';
 
-        const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-        if (userError || !user) {
-            msg.textContent = "Erreur : utilisateur non trouvé.";
-            msg.className = 'error';
-            return;
-        }
-
-        // 1. Supprimer le profil
-        await supabaseClient.from('profiles').delete().eq('id', user.id);
-
-        // 2. Rendre le compte inutilisable (email aléatoire)
-        const randomEmail = 'deleted_' + Date.now() + '@deleted.com';
-        await supabaseClient.auth.updateUser({ email: randomEmail });
-
-        // 3. Déconnecter
-        await supabaseClient.auth.signOut();
-
-        // 4. Rediriger
-        window.location.href = '/?compte=supprime';
+    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+    if (userError || !user) {
+        msg.textContent = "Erreur : utilisateur non trouvé.";
+        msg.className = 'error';
+        return;
     }
+
+    // 1. Supprimer le profil
+    await supabaseClient.from('profiles').delete().eq('id', user.id);
+
+    // 2. Rendre le compte inutilisable via l'API REST Supabase
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+        await fetch(SUPABASE_URL + '/auth/v1/user', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + session.access_token,
+                'apikey': SUPABASE_ANON_KEY,
+            },
+            body: JSON.stringify({ email: 'deleted_' + Date.now() + '@deleted.com' }),
+        });
+    }
+
+    // 3. Déconnecter
+    await supabaseClient.auth.signOut();
+
+    // 4. Rediriger
+    window.location.href = '/?compte=supprime';
+}
 
     async function logout() {
         await supabaseClient.auth.signOut();
