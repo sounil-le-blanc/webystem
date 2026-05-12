@@ -242,7 +242,6 @@
 </div>
 
 <script>
-    // UN SEUL client Supabase pour toute la page
     const supabaseClient = supabase.createClient(
         'https://zjywzpyuiverfxmzjlpq.supabase.co',
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
@@ -261,7 +260,6 @@
 
         if (error) {
             calendar.innerHTML = '<p style="color: #ccc;">Erreur de chargement.</p>';
-            console.error(error);
             return;
         }
 
@@ -303,64 +301,36 @@
         if (!selectedSlot) { msg.textContent = 'Choisis un créneau.'; msg.className = 'error'; return; }
 
         btnReserve.disabled = true;
-        btnReserve.textContent = '⏳ Redirection vers Stripe...';
+        btnReserve.textContent = '⏳ Réservation...';
         msg.textContent = '';
         msg.className = '';
 
-        try {
-            const { error: updateError } = await supabaseClient
-                .from('slots')
-                .update({ booked: true, booked_by: email, booked_at: new Date() })
-                .eq('id', selectedSlot.id);
+        const { error: updateError } = await supabaseClient
+            .from('slots')
+            .update({ booked: true, booked_by: email, booked_at: new Date() })
+            .eq('id', selectedSlot.id);
 
-            if (updateError) {
-                msg.textContent = 'Ce créneau vient d\'être réservé.';
-                msg.className = 'error';
-                btnReserve.disabled = false;
-                btnReserve.textContent = 'Réserver et payer — 80 €';
-                loadSlots();
-                return;
-            }
-
-            const response = await fetch('/api/create-coaching-checkout', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: email,
-                    name: name,
-                    slot: selectedSlot.value,
-                    slotLabel: selectedSlot.date + ' ' + selectedSlot.time,
-                }),
-            });
-
-            const data = await response.json();
-
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                await supabaseClient
-                    .from('slots')
-                    .update({ booked: false, booked_by: null, booked_at: null })
-                    .eq('id', selectedSlot.id);
-
-                msg.textContent = 'Erreur : ' + (data.error || 'Impossible de créer la session.');
-                msg.className = 'error';
-                btnReserve.disabled = false;
-                btnReserve.textContent = 'Réserver et payer — 80 €';
-                loadSlots();
-            }
-        } catch (error) {
-            await supabaseClient
-                .from('slots')
-                .update({ booked: false, booked_by: null, booked_at: null })
-                .eq('id', selectedSlot.id);
-
-            msg.textContent = 'Erreur réseau. Contacte-moi : contact@webystem.com';
+        if (updateError) {
+            msg.textContent = 'Erreur : ' + updateError.message;
             msg.className = 'error';
             btnReserve.disabled = false;
             btnReserve.textContent = 'Réserver et payer — 80 €';
-            loadSlots();
+            return;
         }
+
+        msg.textContent = '✅ Créneau réservé ! (Test sans paiement)';
+        msg.className = 'success';
+        btnReserve.textContent = '✅ Réservé';
+        
+        setTimeout(() => {
+            loadSlots();
+            btnReserve.disabled = true;
+            btnReserve.textContent = 'Choisis un créneau';
+            msg.textContent = '';
+            msg.className = '';
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+        }, 2000);
     });
 
     loadSlots();
