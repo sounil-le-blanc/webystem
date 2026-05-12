@@ -292,7 +292,7 @@
         });
     }
 
-    btnReserve.addEventListener('click', async () => {
+        btnReserve.addEventListener('click', async () => {
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
 
@@ -305,6 +305,7 @@
         msg.textContent = '';
         msg.className = '';
 
+        // Marquer le créneau comme réservé
         const { error: updateError } = await supabaseClient
             .from('slots')
             .update({ booked: true, booked_by: email, booked_at: new Date() })
@@ -318,7 +319,20 @@
             return;
         }
 
-        msg.textContent = '✅ Créneau réservé ! (Test sans paiement)';
+        // Envoyer l'email de confirmation
+        const slotLabel = selectedSlot.date + ' ' + selectedSlot.time;
+        fetch('/api/send-coaching-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                name: name,
+                slotLabel: slotLabel,
+                type: 'confirmation',
+            }),
+        }).catch(() => {});
+
+        msg.textContent = '✅ Créneau réservé ! Tu vas recevoir un email.';
         msg.className = 'success';
         btnReserve.textContent = '✅ Réservé';
         
@@ -330,7 +344,7 @@
             msg.className = '';
             document.getElementById('name').value = '';
             document.getElementById('email').value = '';
-        }, 2000);
+        }, 3000);
     });
 
     loadSlots();
