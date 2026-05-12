@@ -299,10 +299,9 @@
         if (!confirmation) return;
 
         const msg = document.getElementById('message');
-        msg.textContent = '';
+        msg.textContent = '⏳ Suppression en cours...';
         msg.className = '';
 
-        // 1. Récupérer l'utilisateur connecté
         const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
         if (userError || !user) {
             msg.textContent = "Erreur : utilisateur non trouvé.";
@@ -310,13 +309,17 @@
             return;
         }
 
-        // 2. Supprimer son profil de la table profiles
+        // 1. Supprimer le profil
         await supabaseClient.from('profiles').delete().eq('id', user.id);
 
-        // 3. Déconnecter l'utilisateur
+        // 2. Rendre le compte inutilisable (email aléatoire)
+        const randomEmail = 'deleted_' + Date.now() + '@deleted.com';
+        await supabaseClient.auth.updateUser({ email: randomEmail });
+
+        // 3. Déconnecter
         await supabaseClient.auth.signOut();
 
-        // 4. Rediriger vers la page d'accueil avec un message
+        // 4. Rediriger
         window.location.href = '/?compte=supprime';
     }
 
