@@ -25,6 +25,9 @@ export default async function handler(req, res) {
         slot: req.body.slot || '',
         slotLabel: req.body.slotLabel || '',
       },
+      payment_intent_data: {
+        description: 'Coaching Orientation & IA - 2h',
+      },
     });
 
     res.status(200).json({ url: session.url });
