@@ -12,24 +12,39 @@
     <p><a href="/" style="color:#fff;">← Retour au site</a></p>
 
     <script>
-        const supabaseClient = supabase.createClient(
-            'https://zjywzpyuiverfxmzjlpq.supabase.co',
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
-        );
+    const supabaseClient = supabase.createClient(
+        'https://zjywzpyuiverfxmzjlpq.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
+    );
 
-        const params = new URLSearchParams(window.location.search);
-        const slot = params.get('slot');
-        const email = params.get('email');
+    const params = new URLSearchParams(window.location.search);
+    const slot = params.get('slot');
+    const email = params.get('email');
+    const name = params.get('name') || '';
+    const slotLabel = params.get('slotLabel') || '';
 
-        if (slot) {
-            supabaseClient
-                .from('slots')
-                .update({ booked: true, booked_by: email, booked_at: new Date() })
-                .eq('value', slot)
-                .then(() => {
-                    document.getElementById('status').textContent = 'Réservation confirmée. À bientôt !';
-                });
-        }
-    </script>
+    if (slot) {
+        // Marquer le créneau
+        supabaseClient
+            .from('slots')
+            .update({ booked: true, booked_by: email, booked_at: new Date() })
+            .eq('value', slot)
+            .then(() => {
+                document.getElementById('status').textContent = 'Réservation confirmée. Tu vas recevoir un email.';
+            });
+
+        // Envoyer l'email de confirmation
+        fetch('/api/send-coaching-email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: email,
+                name: name,
+                slotLabel: slotLabel,
+                type: 'confirmation',
+            }),
+        });
+    }
+</script>
 </body>
 </html>
