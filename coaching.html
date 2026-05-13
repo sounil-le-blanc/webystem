@@ -292,7 +292,7 @@
         });
     }
 
-            btnReserve.addEventListener('click', async () => {
+                btnReserve.addEventListener('click', async () => {
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
 
@@ -304,21 +304,6 @@
         btnReserve.textContent = '⏳ Redirection vers Stripe...';
         msg.textContent = '';
         msg.className = '';
-
-        // Marquer le créneau comme réservé
-        const { error: updateError } = await supabaseClient
-            .from('slots')
-            .update({ booked: true, booked_by: email, booked_at: new Date() })
-            .eq('id', selectedSlot.id);
-
-        if (updateError) {
-            msg.textContent = 'Ce créneau vient d\'être réservé.';
-            msg.className = 'error';
-            btnReserve.disabled = false;
-            btnReserve.textContent = 'Réserver et payer — 80 €';
-            loadSlots();
-            return;
-        }
 
         try {
             const response = await fetch('/api/create-coaching-checkout', {
@@ -337,28 +322,16 @@
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                await supabaseClient
-                    .from('slots')
-                    .update({ booked: false, booked_by: null, booked_at: null })
-                    .eq('id', selectedSlot.id);
-
                 msg.textContent = 'Erreur : ' + (data.error || 'Paiement indisponible.');
                 msg.className = 'error';
                 btnReserve.disabled = false;
                 btnReserve.textContent = 'Réserver et payer — 80 €';
-                loadSlots();
             }
         } catch (error) {
-            await supabaseClient
-                .from('slots')
-                .update({ booked: false, booked_by: null, booked_at: null })
-                .eq('id', selectedSlot.id);
-
             msg.textContent = 'Erreur réseau. Contacte-moi : contact@webystem.com';
             msg.className = 'error';
             btnReserve.disabled = false;
             btnReserve.textContent = 'Réserver et payer — 80 €';
-            loadSlots();
         }
     });
 
