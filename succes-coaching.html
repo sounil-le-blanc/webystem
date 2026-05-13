@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paiement confirmé — Webystem</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-    <main>
-        <section>
-            <div class="container section-narrow" style="text-align: center;">
-                <h2>✅ Paiement confirmé</h2>
-                <p>Merci pour ta confiance. Je te contacte sous 24h pour caler notre séance.</p>
-                <p>📞 Si tu veux aller plus vite : <a href="tel:+33756933857">07 56 93 38 57</a></p>
-                <p><a href="/">← Retour au site</a></p>
-            </div>
-        </section>
-    </main>
+<body style="background:#0a0a0a; color:#fff; font-family:system-ui; text-align:center; padding-top:100px;">
+    <h1>✅ Paiement confirmé</h1>
+    <p id="status">Finalisation de ta réservation...</p>
+    <p><a href="/" style="color:#fff;">← Retour au site</a></p>
+
+    <script>
+        const supabaseClient = supabase.createClient(
+            'https://zjywzpyuiverfxmzjlpq.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpqeXd6cHl1aXZlcmZ4bXpqbHBxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1OTk0NDgsImV4cCI6MjA5NDE3NTQ0OH0._MmLjt1Ak0vrv78ny9na--QcBS4MROXAeByN0wZj6zs'
+        );
+
+        const params = new URLSearchParams(window.location.search);
+        const slot = params.get('slot');
+        const email = params.get('email');
+
+        if (slot) {
+            supabaseClient
+                .from('slots')
+                .update({ booked: true, booked_by: email, booked_at: new Date() })
+                .eq('value', slot)
+                .then(() => {
+                    document.getElementById('status').textContent = 'Réservation confirmée. À bientôt !';
+                });
+        }
+    </script>
 </body>
 </html>

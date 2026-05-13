@@ -17,7 +17,7 @@ export default async function handler(req, res) {
         },
       ],
       mode: 'payment',
-      success_url: 'https://webystem.com/succes-coaching.html',
+      success_url: 'https://webystem.com/succes-coaching.html?slot=' + req.body.slot + '&email=' + req.body.email + '&name=' + encodeURIComponent(req.body.name) + '&slotLabel=' + encodeURIComponent(req.body.slotLabel),
       cancel_url: 'https://webystem.com/coaching.html',
       customer_email: req.body.email || undefined,
       metadata: {
