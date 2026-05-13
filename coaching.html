@@ -292,7 +292,7 @@
         });
     }
 
-        btnReserve.addEventListener('click', async () => {
+            btnReserve.addEventListener('click', async () => {
         const name = document.getElementById('name').value.trim();
         const email = document.getElementById('email').value.trim();
 
@@ -301,7 +301,7 @@
         if (!selectedSlot) { msg.textContent = 'Choisis un créneau.'; msg.className = 'error'; return; }
 
         btnReserve.disabled = true;
-        btnReserve.textContent = '⏳ Réservation...';
+        btnReserve.textContent = '⏳ Redirection vers Stripe...';
         msg.textContent = '';
         msg.className = '';
 
@@ -312,39 +312,54 @@
             .eq('id', selectedSlot.id);
 
         if (updateError) {
-            msg.textContent = 'Erreur : ' + updateError.message;
+            msg.textContent = 'Ce créneau vient d\'être réservé.';
             msg.className = 'error';
             btnReserve.disabled = false;
             btnReserve.textContent = 'Réserver et payer — 80 €';
+            loadSlots();
             return;
         }
 
-        // Envoyer l'email de confirmation
-        const slotLabel = selectedSlot.date + ' ' + selectedSlot.time;
-        fetch('/api/send-coaching-email', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                email: email,
-                name: name,
-                slotLabel: slotLabel,
-                type: 'confirmation',
-            }),
-        }).catch(() => {});
+        try {
+            const response = await fetch('/api/create-coaching-checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    name: name,
+                    slot: selectedSlot.value,
+                    slotLabel: selectedSlot.date + ' ' + selectedSlot.time,
+                }),
+            });
 
-        msg.textContent = '✅ Créneau réservé ! Tu vas recevoir un email.';
-        msg.className = 'success';
-        btnReserve.textContent = '✅ Réservé';
-        
-        setTimeout(() => {
+            const data = await response.json();
+
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                await supabaseClient
+                    .from('slots')
+                    .update({ booked: false, booked_by: null, booked_at: null })
+                    .eq('id', selectedSlot.id);
+
+                msg.textContent = 'Erreur : ' + (data.error || 'Paiement indisponible.');
+                msg.className = 'error';
+                btnReserve.disabled = false;
+                btnReserve.textContent = 'Réserver et payer — 80 €';
+                loadSlots();
+            }
+        } catch (error) {
+            await supabaseClient
+                .from('slots')
+                .update({ booked: false, booked_by: null, booked_at: null })
+                .eq('id', selectedSlot.id);
+
+            msg.textContent = 'Erreur réseau. Contacte-moi : contact@webystem.com';
+            msg.className = 'error';
+            btnReserve.disabled = false;
+            btnReserve.textContent = 'Réserver et payer — 80 €';
             loadSlots();
-            btnReserve.disabled = true;
-            btnReserve.textContent = 'Choisis un créneau';
-            msg.textContent = '';
-            msg.className = '';
-            document.getElementById('name').value = '';
-            document.getElementById('email').value = '';
-        }, 3000);
+        }
     });
 
     loadSlots();
